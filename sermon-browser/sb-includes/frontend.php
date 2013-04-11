@@ -638,7 +638,7 @@ function sb_print_next_page_link($limit = 0) {
 	$current = isset($_REQUEST['page']) ? (int) $_REQUEST['page'] : 1;
 	if ($current < ceil($record_count / $limit)) {
 		$url = sb_build_url(array('page' => ++$current));
-		echo '<a href="'.$url.'">'.__('Next page', $sermon_domain).' &raquo;</a>';
+		echo '<a href="'.$url.'">'.__('<img alt="Next Page" style="padding-top:15px;" src="http://sermons.mvchurchofchrist.org/wp-content/plugins/sermon-browser/sb-includes/icons/NextPageButton.png" />', $sermon_domain).'</a>';//Jarrod's Code
 	}
 }
 
@@ -649,7 +649,7 @@ function sb_print_prev_page_link($limit = 0) {
 	$current = isset($_REQUEST['page']) ? (int) $_REQUEST['page'] : 1;
 	if ($current > 1) {
 		$url = sb_build_url(array('page' => --$current));
-		echo '<a href="'.$url.'">&laquo; '.__('Previous page', $sermon_domain).'</a>';
+		echo '<a href="'.$url.'">'.__('<img alt="Previous Page" style="padding-top:15px;" src="http://sermons.mvchurchofchrist.org/wp-content/plugins/sermon-browser/sb-includes/icons/PreviousPageButton.png" />', $sermon_domain).'</a>';//Jarrod's Code
 	}
 }
 
