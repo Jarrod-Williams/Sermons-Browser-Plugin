@@ -15,6 +15,16 @@ $filetypes = array(
 		'name' => 'mp3',
 		'icon' => 'audio.png',
 		'content-type' => 'audio/mpeg',
+	),	//Jarrod's Code
+	'm4v' => array(
+		'name' => 'iTunes Video File',
+		'icon' => 'video.png',
+		'content-type' => 'video/iTunes Video File',
+	),		
+	'mp4' => array(
+		'name' => 'iTunes Video File',
+		'icon' => 'video.png',
+		'content-type' => 'video/iTunes Video File',
 	),
 	'doc' => array(
 		'name' => 'Microsoft Word',
