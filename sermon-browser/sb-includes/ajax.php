@@ -1,5 +1,6 @@
 <?php
 global $sermon_domain;
+define ('SB_AJAX', true);
 
 // Throughout this plugin, p stands for preacher, s stands for service and ss stands for series
 if (isset($_POST['pname'])) { // preacher
@@ -9,7 +10,7 @@ if (isset($_POST['pname'])) { // preacher
 		if (isset($_POST['del'])) {
 			$wpdb->query("DELETE FROM {$wpdb->prefix}sb_preachers WHERE id = $pid;");
 		} else {
-			$wpdb->query("UPDATE {$wpdb->prefix}sb_preachers SET name = '$pname' WHERE id = $pid;");				
+			$wpdb->query("UPDATE {$wpdb->prefix}sb_preachers SET name = '$pname' WHERE id = $pid;");
 		}
 		echo 'done';
 		die();
@@ -17,7 +18,7 @@ if (isset($_POST['pname'])) { // preacher
 		$wpdb->query("INSERT INTO {$wpdb->prefix}sb_preachers VALUES (null, '$pname', '', '');");
 		echo $wpdb->insert_id;
 		die();
-	} 		
+	}
 } elseif (isset($_POST['sname'])) { // service
 	$sname = mysql_real_escape_string($_POST['sname']);
 	list($sname, $stime) = split('@', $sname);
@@ -28,20 +29,20 @@ if (isset($_POST['pname'])) { // preacher
 		if (isset($_POST['del'])) {
 			$wpdb->query("DELETE FROM {$wpdb->prefix}sb_services WHERE id = $sid;");
 		} else {
-            $old_time = $wpdb->get_var("SELECT time FROM {$wpdb->prefix}sb_services WHERE id = $sid;");
-            if (!$old_time)
-                $old_time = '00:00';
-            $difference = strtotime($stime) - strtotime($old_time);
+			$old_time = $wpdb->get_var("SELECT time FROM {$wpdb->prefix}sb_services WHERE id = $sid;");
+			if (!$old_time)
+				$old_time = '00:00';
+			$difference = strtotime($stime) - strtotime($old_time);
 			$wpdb->query("UPDATE {$wpdb->prefix}sb_services SET name = '$sname', time = '$stime' WHERE id = $sid;");
 			$wpdb->query("UPDATE {$wpdb->prefix}sb_sermons SET datetime = DATE_ADD(datetime, INTERVAL {$difference} SECOND) WHERE override = 0 AND service_id = $sid;");
-		}			
+		}
 		echo 'done';
 		die();
 	} else {
 		$wpdb->query("INSERT INTO {$wpdb->prefix}sb_services VALUES (null, '$sname', '$stime');");
 		echo $wpdb->insert_id;
 		die();
-	}		
+	}
 } elseif (isset($_POST['ssname'])) { // series
 	$ssname = mysql_real_escape_string($_POST['ssname']);
 	if (isset($_POST['ssid'])) {
@@ -50,7 +51,7 @@ if (isset($_POST['pname'])) { // preacher
 			$wpdb->query("DELETE FROM {$wpdb->prefix}sb_series WHERE id = $ssid;");
 		} else {
 			$wpdb->query("UPDATE {$wpdb->prefix}sb_series SET name = '$ssname' WHERE id = $ssid;");
-		}				
+		}
 		echo 'done';
 		die();
 	} else {
@@ -65,19 +66,21 @@ if (isset($_POST['pname'])) { // preacher
 		$oname = isset($_POST['oname']) ? mysql_real_escape_string($_POST['oname']) : '';
 		if (isset($_POST['del'])) {
 			if (!file_exists(SB_ABSPATH.sb_get_option('upload_dir').$fname) || unlink(SB_ABSPATH.sb_get_option('upload_dir').$fname)) {
-				$wpdb->query("DELETE FROM {$wpdb->prefix}sb_stuff WHERE id = $fid;");
+				$wpdb->query("DELETE FROM {$wpdb->prefix}sb_stuff WHERE id = {$fid};");
 				echo 'deleted';
 				die();
 			} else {
 				echo 'failed';
 				die();
-			}				
-		} else {				
-			$oname = mysql_real_escape_string($_POST['oname']);	
+			}
+		} else {
+			$oname = mysql_real_escape_string($_POST['oname']);
 			if (IS_MU) {
 				$file_allowed = FALSE;
-				require_once(SB_ABSPATH . 'wp-includes/wpmu-functions.php');
-				if (function_exists('get_site_option')) { 
+				global $wp_version;
+				if (version_compare ($wp_version, '3.0', '<'))
+					require_once(SB_ABSPATH . 'wp-includes/wpmu-functions.php');
+				if (function_exists('get_site_option')) {
 					$allowed_extensions = explode(" ", get_site_option("upload_filetypes"));
 					foreach ($allowed_extensions as $ext) {
 						if (substr(strtolower($filename), -(strlen($ext)+1)) == ".".strtolower($ext))
@@ -92,19 +95,19 @@ if (isset($_POST['pname'])) { // preacher
 					$wpdb->query("UPDATE {$wpdb->prefix}sb_stuff SET name = '$fname' WHERE id = $fid;");
 					echo 'renamed';
 					die();
-				} else {		
-					echo 'failed';				
+				} else {
+					echo 'failed';
 					die();
 				}
 			} else {
 				echo 'forbidden';
 				die();
 			}
-		}				
+		}
 	}
 } elseif (isset($_POST['fetch'])) { // ajax pagination
-    if (function_exists('wp_timezone_override_offset'))
-        wp_timezone_override_offset();
+	if (function_exists('wp_timezone_override_offset'))
+		wp_timezone_override_offset();
 	$st = (int) $_POST['fetch'] - 1;
 	if (!empty($_POST['title'])) {
 		$cond = "and m.title LIKE '%" . mysql_real_escape_string($_POST['title']) . "%' ";
@@ -126,7 +129,7 @@ if (isset($_POST['pname'])) { // preacher
 
 	$cnt = $wpdb->get_var("SELECT FOUND_ROWS()");
 	?>
-	<?php foreach ($m as $sermon): ?>					
+	<?php foreach ($m as $sermon): ?>
 		<tr class="<?php echo ++$i % 2 == 0 ? 'alternate' : '' ?>">
 			<th style="text-align:center" scope="row"><?php echo $sermon->id ?></th>
 			<td><?php echo stripslashes($sermon->title) ?></td>
@@ -136,7 +139,11 @@ if (isset($_POST['pname'])) { // preacher
 			<td><?php echo stripslashes($sermon->ssname) ?></td>
 			<td><?php echo sb_sermon_stats($sermon->id) ?></td>
 			<td style="text-align:center">
-				<a href="<?php echo $_SERVER['PHP_SELF']?>?page=sermon-browser/new_sermon.php&mid=<?php echo $sermon->id ?>"><?php _e('Edit', $sermon_domain) ?></a> | <a onclick="return confirm('Are you sure?')" href="<?php echo $_SERVER['PHP_SELF']?>?page=sermon-browser/sermon.php&mid=<?php echo $sermon->id ?>"><?php _e('Delete', $sermon_domain) ?></a>
+				<?php //Security check
+						if (current_user_can('edit_posts')) { ?>
+						<a href="<?php echo admin_url("admin.php?page=sermon-browser/new_sermon.php&mid={$sermon->id}"); ?>"><?php _e('Edit', $sermon_domain) ?></a> | <a onclick="return confirm('Are you sure?')" href="<?php echo admin_url("admin.php?page=sermon-browser/sermon.php&mid={$sermon->id}"); ?>"><?php _e('Delete', $sermon_domain); ?></a> |
+				<?php } ?>
+				<a href="<?php echo sb_display_url().sb_query_char(true).'sermon_id='.$sermon->id;?>">View</a>
 			</td>
 		</tr>
 	<?php endforeach ?>
@@ -158,7 +165,7 @@ if (isset($_POST['pname'])) { // preacher
 	} else {
 		$s = mysql_real_escape_string($_POST['search']);
 		$abc = $wpdb->get_results("SELECT f.*, s.title FROM {$wpdb->prefix}sb_stuff AS f LEFT JOIN {$wpdb->prefix}sb_sermons AS s ON f.sermon_id = s.id WHERE f.name LIKE '%{$s}%' AND f.type = 'file' ORDER BY f.name;");
-	}		
+	}
 ?>
 <?php if (count($abc) >= 1): ?>
 	<?php foreach ($abc as $file): ?>
@@ -173,23 +180,23 @@ if (isset($_POST['pname'])) { // preacher
 					if (confirm('Do you really want to delete '+filename+'?')) {
 						if (filesermon != '') {
 							return confirm('This file is linked to the sermon called ['+filesermon+']. Are you sure you want to delete it?');
-						}	
+						}
 						return true;
 					}
 					return false;
 				}
 				</script>
-				<?php if (isset($_POST['fetchU'])) { ?><a id="" href="<?php echo $_SERVER['PHP_SELF']."?page=sermon-browser/new_sermon.php&amp;getid3={$file->id}"; ?>"><?php _e('Create sermon', $sermon_domain) ?></a> | <?php } ?>
+				<?php if (isset($_POST['fetchU'])) { ?><a id="" href="<?php echo admin_url("admin.php?page=sermon-browser/new_sermon.php&amp;getid3={$file->id}"); ?>"><?php _e('Create sermon', $sermon_domain) ?></a> | <?php } ?>
 				<a id="link<?php echo $file->id ?>" href="javascript:rename(<?php echo $file->id ?>, '<?php echo $file->name ?>')"><?php _e('Rename', $sermon_domain) ?></a> | <a onclick="return deletelinked_<?php echo $file->id;?>('<?php echo str_replace("'", '', $file->name) ?>', '<?php echo str_replace("'", '', $file->title) ?>');" href="javascript:kill(<?php echo $file->id ?>, '<?php echo $file->name ?>');"><?php _e('Delete', $sermon_domain) ?></a>
 			</td>
 		</tr>
-	<?php endforeach ?>	
+	<?php endforeach ?>
 <?php else: ?>
 	<tr>
 		<td><?php _e('No results', $sermon_domain) ?></td>
 	</tr>
 <?php endif ?>
-<?php		
+<?php
 }
 die();
 

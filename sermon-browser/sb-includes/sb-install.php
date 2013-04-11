@@ -2,14 +2,14 @@
 function sb_install() {
 	global $wpdb;
 	$sermonUploadDir = sb_get_default('sermon_path');
-	require ('dictionary.php');
+	require (SB_INCLUDES_DIR.'/dictionary.php');
 	if (!is_dir(SB_ABSPATH.$sermonUploadDir))
 		sb_mkdir(SB_ABSPATH.$sermonUploadDir);
 	if (!is_dir(SB_ABSPATH.$sermonUploadDir.'images'))
 		sb_mkdir(SB_ABSPATH.$sermonUploadDir.'images');
 
 	$table_name = "{$wpdb->prefix}sb_preachers";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {            
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
 		$sql = "CREATE TABLE {$table_name} (
 			id INT(10) NOT NULL AUTO_INCREMENT,
 			name VARCHAR(30) NOT NULL,
@@ -23,7 +23,7 @@ function sb_install() {
 	}
 
 	$table_name = "{$wpdb->prefix}sb_series";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {      
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
 		$sql = "CREATE TABLE {$table_name} (
 			id INT(10) NOT NULL AUTO_INCREMENT,
 			name VARCHAR(255) NOT NULL,
@@ -36,11 +36,11 @@ function sb_install() {
 	}
 
 	$table_name = "{$wpdb->prefix}sb_services";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {      
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
 		$sql = "CREATE TABLE {$table_name} (
 			id INT(10) NOT NULL AUTO_INCREMENT,
 			name VARCHAR(255) NOT NULL,
-			time VARCHAR(5) NOT NULL, 
+			time VARCHAR(5) NOT NULL,
 			PRIMARY KEY (id)
 		)";
 		$wpdb->query ($sql);
@@ -51,7 +51,7 @@ function sb_install() {
 	}
 
 	$table_name = "{$wpdb->prefix}sb_sermons";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {      
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
 		$sql = "CREATE TABLE {$table_name} (
 			id INT(10) NOT NULL AUTO_INCREMENT,
 			title VARCHAR(255) NOT NULL,
@@ -62,7 +62,7 @@ function sb_install() {
 			start TEXT NOT NULL,
 			end TEXT NOT NULL,
 			description TEXT,
-			time VARCHAR (5), 
+			time VARCHAR (5),
 			override TINYINT (1),
 			page_id INT(10) NOT NULL,
 			PRIMARY KEY (id)
@@ -71,24 +71,24 @@ function sb_install() {
 	}
 
 	$table_name = "{$wpdb->prefix}sb_books_sermons";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {      
-		$sql = "CREATE TABLE {$table_name} (		
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
+		$sql = "CREATE TABLE {$table_name} (
 			id INT(10) NOT NULL AUTO_INCREMENT,
-			book_name VARCHAR(30) NOT NULL,		
+			book_name VARCHAR(30) NOT NULL,
 			chapter INT(10) NOT NULL,
 			verse INT(10) NOT NULL,
 			`order` INT(10) NOT NULL,
-			type VARCHAR (30) DEFAULT NULL, 
+			type VARCHAR (30) DEFAULT NULL,
 			sermon_id INT(10) NOT NULL,
-            PRIMARY KEY (id),
+			PRIMARY KEY (id),
 			KEY sermon_id (sermon_id)
 		)";
 		$wpdb->query ($sql);
 	}
 
 	$table_name = "{$wpdb->prefix}sb_books";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {      
-		$sql = "CREATE TABLE {$table_name} (		
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
+		$sql = "CREATE TABLE {$table_name} (
 			id INT(10) NOT NULL AUTO_INCREMENT,
 			name VARCHAR(30) NOT NULL,
 			PRIMARY KEY (id)
@@ -97,7 +97,7 @@ function sb_install() {
 	}
 
 	$table_name = "{$wpdb->prefix}sb_stuff";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {      
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
 		$sql = "CREATE TABLE {$table_name} (
 			id INT(10) NOT NULL AUTO_INCREMENT ,
 			type VARCHAR(30) NOT NULL,
@@ -111,7 +111,7 @@ function sb_install() {
 	}
 
 	$table_name = "{$wpdb->prefix}sb_tags";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {      
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
 		$sql = "CREATE TABLE {$table_name} (
 			id int(10) NOT NULL auto_increment,
 			name varchar(255) default NULL,
@@ -122,7 +122,7 @@ function sb_install() {
    }
 
 	$table_name = "{$wpdb->prefix}sb_sermons_tags";
-	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {      
+	if ($wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") != $table_name) {
 		$sql = "CREATE TABLE {$table_name} (
 			id INT(10) NOT NULL AUTO_INCREMENT,
 			sermon_id INT(10) NOT NULL,
@@ -135,7 +135,7 @@ function sb_install() {
 
 	sb_update_option('upload_dir', $sermonUploadDir);
 	sb_update_option('upload_url', sb_get_default('attachment_url'));
-	sb_update_option('podcast_url', get_bloginfo('wpurl').'?podcast');
+	sb_update_option('podcast_url', site_url().'?podcast');
 	sb_update_option('display_method', 'dynamic');
 	sb_update_option('sermons_per_page', '10');
 	sb_update_option('search_template', sb_default_multi_template());
@@ -151,12 +151,13 @@ function sb_install() {
 	sb_update_option('filter_type', 'oneclick');
 	sb_update_option('filter_hide', 'hide');
 	sb_update_option('import_prompt',true);
-    sb_update_option('hide_no_attachments',false);
-    sb_update_option('import_title', false);
-    sb_update_option('import_artist', false);
-    sb_update_option('import_album', false);
-    sb_update_option('import_comments', false);
-    sb_update_option('import_filename', 'none');
+	sb_update_option('hide_no_attachments',false);
+	sb_update_option('import_title', false);
+	sb_update_option('import_artist', false);
+	sb_update_option('import_album', false);
+	sb_update_option('import_comments', false);
+	sb_update_option('import_filename', 'none');
+	sb_update_option('mp3_shortcode', '[audio:%SERMONURL%]');
 }
 
 //Default template for search results
@@ -187,11 +188,11 @@ $multi = <<<HERE
 			</tr>
 		</table>
 	</div>
-	<h2 class="clear">Sermons ([sermons_count])</h2>   	
+	<h2 class="clear">Sermons ([sermons_count])</h2>
    	<div class="floatright">[next_page]</div>
    	<div class="floatleft">[previous_page]</div>
 	<table class="sermons">
-	[sermons_loop]	
+	[sermons_loop]
 		<tr>
 			<td class="sermon-title">[sermon_title]</td>
 		</tr>
@@ -259,12 +260,31 @@ $css = <<<HERE
 	clear: both;
 }
 
+#content div.sermon-browser table, #content div.sermon-browser td {
+	border-top: none;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
+
+#content div.sermon-browser tr td {
+	padding: 4px 0;
+}
+
+#content div.sermon-browser table.podcast table {
+	margin: 0 1em;
+}
+
+#content div.sermon-browser td.sermon-title, #content div.sermon-browser td.sermon-passage {
+	font-family: "Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
+}
+
 div.sermon-browser table.sermons {
 	width: 100%;
 	clear:both;
 }
 
-div.sermon-browser table.sermons td.sermon-title {
+#content div.sermon-browser table.sermons td.sermon-title {
 	font-weight:bold;
 	font-size: 140%;
 	padding-top: 2em;
@@ -275,8 +295,9 @@ div.sermon-browser table.sermons td.sermon-passage {
 	font-size: 110%;
 }
 
-div.sermon-browser table.sermons td.preacher {
+#content div.sermon-browser table.sermons td.preacher {
 	border-bottom: 1px solid #444444;
+	padding-bottom: 1em;
 }
 
 div.sermon-browser table.sermons td.files img {
@@ -343,7 +364,7 @@ table.podcast {
 }
 
 td.podcast-icon {
-    padding-right:1em;
+	padding-right:1em;
 }
 
 div.filtered, div.mainfilter {
@@ -351,11 +372,11 @@ div.filtered, div.mainfilter {
 }
 
 div.filter {
-    margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 .filter-heading {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 div.sermon-browser-results span.preacher {
@@ -459,7 +480,7 @@ h2 div.sb_edit_link {
 }
 
 .clear {
-    clear:both;
+	clear:both;
 }
 HERE;
    return $css;
@@ -469,7 +490,7 @@ function sb_default_excerpt_template () {
 $multi = <<<HERE
 <div class="sermon-browser">
 	<table class="sermons">
-	[sermons_loop]	
+	[sermons_loop]
 		<tr>
 			<td class="sermon-title">[sermon_title]</td>
 		</tr>

@@ -1,10 +1,25 @@
 <?php
+/**
+* Widget functions
+*
+* Functions required to manage and display widgets
+* @package widget_functions
+*/
 
-// Error message for people using the old function
+
+/**
+* Deprecated function - displays error message
+*
+* @param array $options
+*/
 function display_sermons($options = array()) {
 	echo "This function is now deprecated. Use sb_display_sermons or the sermon browser widget, instead.";
 }
-// Function to display sermons for users to add to their template
+/**
+* Function to display sermons for users to add to their template
+*
+* @param array $options
+*/
 function sb_display_sermons($options = array()) {
 	$default = array(
 		'display_preacher' => 1,
@@ -23,7 +38,7 @@ function sb_display_sermons($options = array()) {
 			'service' => $service,
 			'series' => $series
 		),
-		array(), 1, $limit		
+		array(), 1, $limit
 	);
 	echo "<ul class=\"sermon-widget\">\r";
 	foreach ((array) $sermons as $sermon) {
@@ -50,7 +65,10 @@ function sb_display_sermons($options = array()) {
 	echo "</ul>\r";
 }
 
-// Registers the Sermon Browser widget
+/**
+* Registers the Sermon Browser widget
+*
+*/
 function sb_widget_sermon_init() {
 	global $sermon_domain;
 	if ( !$options = get_option('sb_widget_sermon') )
@@ -74,7 +92,11 @@ function sb_widget_sermon_init() {
 	register_sidebar_widget(__('Sermon Browser tags', $sermon_domain), 'sb_widget_tag_cloud');
 }
 
-// Displays the tag cloud in the sidebar
+/**
+* Displays the tag cloud in the sidebar
+*
+* @param array $args
+*/
 function sb_widget_tag_cloud ($args) {
 	global $sermon_domain;
 	extract($args);
@@ -84,8 +106,14 @@ function sb_widget_tag_cloud ($args) {
 	echo $after_widget;
 }
 
-// Returns the first MP3 file attached to a sermon
-// Stats have to be turned off for iTunes compatibility
+/**
+* Returns the first MP3 file attached to a sermon
+* Stats have to be turned off for iTunes compatibility
+*
+* @param object $sermon
+* @param boolean $stats
+* @returns string - URL of the first MP3 file for this sermon
+*/
 function sb_first_mp3($sermon, $stats= TRUE) {
 	$user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 	if (stripos($user_agent, 'itunes') !== FALSE | stripos($user_agent, 'FeedBurner') !== FALSE)
@@ -96,12 +124,12 @@ function sb_first_mp3($sermon, $stats= TRUE) {
 		if (strtolower(substr($file, strrpos($file, '.') + 1)) == 'mp3') {
 			if (substr($file,0,7) == "http://") {
 				if ($stats)
-					$file=sb_display_url().sb_query_char().'show&amp;url='.URLencode($file);
+					$file=sb_display_url().sb_query_char().'show&amp;url='.rawurlencode($file);
 			} else {
 				if (!$stats)
-					$file=sb_get_value('wordpress_url').get_option('sb_sermon_upload_dir').URLencode($file);
+					$file=sb_get_value('wordpress_url').get_option('sb_sermon_upload_dir').rawurlencode($file);
 				else
-					$file=sb_display_url().sb_query_char().'show&amp;file_name='.URLencode($file);
+					$file=sb_display_url().sb_query_char().'show&amp;file_name='.rawurlencode($file);
 			}
 			return $file;
 			break;
@@ -109,7 +137,13 @@ function sb_first_mp3($sermon, $stats= TRUE) {
 	}
 }
 
-// Displays the mini flash mp3 player (only if audio player is installed)
+/**
+* Displays the mini flash mp3 player
+*
+* @param object $sermon
+* @param int $id - The id number of this player on this page
+* @param string $flashvars
+*/
 function sb_display_mini_player ($sermon, $id=1, $flashvars="") {
 	$filename = sb_first_mp3($sermon, FALSE);
 	if ($filename !="") {
@@ -134,7 +168,12 @@ function sb_display_mini_player ($sermon, $id=1, $flashvars="") {
 	}
 }
 
-// Displays the widget
+/**
+* Displays the widget
+*
+* @param array $args
+* @param mixed $widget_args - An array of arguments, or the id number of this widget
+*/
 function sb_widget_sermon( $args, $widget_args = 1 ) {
 	global $sermon_domain;
 	extract( $args, EXTR_SKIP );
@@ -153,7 +192,7 @@ function sb_widget_sermon( $args, $widget_args = 1 ) {
 			'service' => $service,
 			'series' => $series
 		),
-		array(), 1, $limit		
+		array(), 1, $limit
 	);
 	$i=0;
 	echo "<ul class=\"sermon-widget\">";
@@ -181,13 +220,17 @@ function sb_widget_sermon( $args, $widget_args = 1 ) {
 	echo $after_widget;
 }
 
-// Displays the widget options and handles changes
+/**
+* Displays the widget options and handles changes
+*
+* @param mixed $widget_args - An array of arguments, or the id number of this widget
+*/
 function sb_widget_sermon_control( $widget_args = 1 ) {
 	global $wpdb, $sermon_domain;
 	global $wp_registered_widgets;
 	static $updated = false;
-	
-	$dpreachers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sb_preachers ORDER BY id;");	
+
+	$dpreachers = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sb_preachers ORDER BY id;");
 	$dseries = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sb_series ORDER BY id;");
 	$dservices = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}sb_services ORDER BY id;");
 
