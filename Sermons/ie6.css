@@ -1,0 +1,25 @@
+div#bg-container {
+    display: none;
+}
+
+div#outer_body {
+    background-color: #F5F0C3;
+}
+
+#sidebar div.sidebar_description {
+    background-image: none;
+    background-color: #430124;
+}
+
+ul.menubar {
+    margin-left: 0;
+    margin-right: -50px;
+}
+
+.narrowcolumn {
+    margin-left: -550px;
+}
+
+#footer {
+    margin-left: 0;
+}

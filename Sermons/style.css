@@ -1,0 +1,909 @@
+/*
+Theme Name: Monroe Valley Church of Christ - Sermons
+Theme URI: http://Sermons.mvchurchofchrist.org/
+Description: A theme designed by Jenna Beyer and implemented by Jarrod Williams, based on the AskYourPreacher theme.
+Version: 1.0
+Author: Jarrod Williams
+Author URI: 
+Tags: blue, custom header, fixed width, two columns, widgets
+
+	Monroe Valley Church of Christ - Sermons v1.0
+	 http://Sermons.mvchurchofchrist.org
+
+        This theme was designed by Jenna Beyer and built by Jarrod Williams.
+
+	The CSS, XHTML and design is released under GPL:
+	http://www.opensource.org/licenses/gpl-license.php
+
+*/
+
+
+
+/* Begin Typography & Colors */
+body {
+    font-size: 62.5%; /* Resets 1em to 10px */
+    background: #a15d44; 
+    color: #8d5644;
+    text-align: center;
+    background-color:#535F30;
+    color:#585D32;
+    font-family:andalus,Palatino Linotype,Perpetua,Times New Roman;
+    z-index:2;
+}
+
+#content img.hr {
+background-color:transparent;
+background-image:url('images/AskYourPreacher_finals arrow.png');
+border:medium none;
+display:block;
+height:6px;
+margin-left:34px;
+width:425px;
+}
+
+#page {
+    background-color: transparent;
+    text-align: left;
+}
+
+
+
+#headersermons {
+    position: absolute;
+    left: 450px;
+    top: -30px;
+    
+}
+
+#headerchurchofchrist 	{
+    position: absolute;
+    left: 30px;
+    top: -30px;
+}
+
+#header {
+    background: url('images/BGParchment-header.png') no-repeat top left;
+    padding-bottom: 20px;
+    margin-bottom: -20px;
+    width: 702px;
+    height: 347px;
+    margin-top: -30px;
+    padding-top: 30px;
+
+    position: relative;
+
+    left: -17px;
+    top:  30px;
+}
+
+#headerimg h1 {
+    position:absolute;
+
+    left: 22px;
+    top: 180px;
+
+    padding: 0;
+    margin: 0;
+ }
+
+#outer_body {
+    position: relative;
+    margin-left: -17px;
+    padding-left: 50px;
+    padding-right: 40px;
+    width: 600px;
+    top: -235px;
+}
+
+#content {
+    position: relative;
+    min-height: 337px;
+    font-size: 14px;
+    background-repeat: no-repeat;
+}
+
+#content.page, #content.widecolumn {
+    padding-left: 35px;
+    padding-right: 125px;
+    font-size: 12pt;
+}
+
+div.authorheading img {
+    margin-right: -40px;
+}
+
+div.biosparagraph {
+    clear: both;
+    color: black;
+    text-indent: 2.5em;
+}
+
+#content.page h2 {
+    color: rgb(143, 84, 68);
+    padding-top: 75px;
+}
+
+.widecolumn .entry p {
+	font-size: 1.05em;
+	}
+
+.narrowcolumn .entry, .widecolumn .entry {
+	line-height: 1.4em;
+	}
+
+.widecolumn {
+	line-height: 1.6em;
+	}
+
+.narrowcolumn .postmetadata {
+	text-align: center;
+	}
+
+#footer {
+    border: none;
+    margin-left: -122px;
+    height: 160px;
+}
+
+p.banner {
+    background-image: url('images/banner.png');
+    background-repeat: no-repeat;
+    width: 782px;
+    height: 78px;
+    text-align: center;
+    padding-top: 18px;
+    padding-left: 30px;
+    padding-right: 40px;
+    color: rgb(253, 243, 204);
+    margin-bottom: -5px;
+}
+
+p.banner a {
+    color: rgb(254, 254, 152);
+    text-decoration: underline;
+}
+
+#footer p.banner {
+    font-size: 12px;
+}
+
+small {
+	font-size: 0.9em;
+	line-height: 1.5em;
+	margin: 30px 0 0;
+	}
+
+h1, h2, h3 {
+	font-weight: bold;
+	}
+
+h1 {
+	font-size: 4em;
+	text-align: center;
+	}
+
+#headerimg .description {
+	font-size: 1.2em;
+	text-align: center;
+	}
+
+h2 {
+	font-size: 1.6em;
+	}
+
+h2.pagetitle {
+	font-size: 1.6em;
+	}
+
+#sidebar h2 {
+	font-size: 1.2em;
+	}
+
+h3 {
+	font-size: 1.3em;
+	}
+
+h1, h1 a, h1 a:hover, h1 a:visited, #headerimg .description {
+	text-decoration: none;
+	color: white;
+	}
+
+h2, h2 a, h2 a:visited, h3, h3 a, h3 a:visited {
+	color: #8e5644;
+	}
+
+h2, h2 a, h2 a:hover, h2 a:visited, h3, h3 a, h3 a:hover, h3 a:visited, #sidebar h2, #wp-calendar caption, cite {
+	text-decoration: none;
+	}
+
+a:visited {
+    color: purple;
+}
+
+.commentlist li, #commentform input, #commentform textarea {
+	font: 0.9em 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	}
+
+.commentlist li {
+	font-weight: bold;
+	}
+
+.commentlist li .avatar { 
+	float: right;
+	border: 1px solid #eee;
+	padding: 2px;
+	background: #fff;
+	}
+
+.commentlist cite, .commentlist cite a {
+	font-weight: bold;
+	font-style: normal;
+	font-size: 1.1em;
+	}
+
+.commentlist p {
+	font-weight: normal;
+	line-height: 1.5em;
+	text-transform: none;
+	}
+
+.commentmetadata {
+	font-weight: normal;
+	}
+
+#sidebar {
+	font: 1em Serif;
+        position: relative;
+        left: 445px;
+
+	}
+
+small {
+    display: block;
+}
+
+div.post small {
+    margin-top: 0px;
+}
+
+small, #sidebar ul ul li, #sidebar ul ol li, .nocomments, .postmetadata, strike {
+	color: #4d590d;
+	}
+
+blockquote {
+    color: black;
+}
+
+blockquote a {
+    text-decoration: underline;
+}
+
+code {
+	font: 1.1em 'Courier New', Courier, Fixed;
+	}
+
+acronym, abbr, span.caps
+{
+	font-size: 0.9em;
+	letter-spacing: .07em;
+	}
+
+a {
+    color: #8F5444;
+    text-decoration: none;
+}
+
+a:hover {
+    color: purple;
+    text-decoration: underline;
+}
+
+#wp-calendar #prev a, #wp-calendar #next a {
+	font-size: 9pt;
+	}
+
+#wp-calendar a {
+	text-decoration: none;
+	}
+
+#wp-calendar caption {
+	font: bold 1.3em 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	text-align: center;
+	}
+
+#wp-calendar th {
+	font-style: normal;
+	text-transform: capitalize;
+	}
+/* End Typography & Colors */
+
+
+
+/* Begin Structure */
+body {
+	margin: 0 0 20px 0;
+	padding: 0;
+	}
+
+#page {
+	margin: 20px auto;
+	padding: 0;
+	width: 600px;
+	}
+
+.narrowcolumn {
+    float: right;
+    clear: both;
+    margin-right: 90px;
+    width: 500px;
+    margin-top: 25px;
+    margin-left: -600px;
+}
+
+.widecolumn {
+    padding: 10px 0 20px 0;
+    margin: 5px 5px 0 0px;
+}
+
+.post {
+	margin: 0 0 0px;
+	padding-left: 20px;
+	padding-right: 50px;
+	text-align: justify;
+	}
+
+.page .post {
+    background-image: none;
+}
+
+.post hr {
+	display: block;
+	}
+
+.widecolumn .post {
+	margin: 0;
+	}
+
+.narrowcolumn .postmetadata {
+	padding-top: 5px;
+	}
+
+.widecolumn .postmetadata {
+	margin: 30px 0;
+	}
+
+.widecolumn .smallattachment {
+	text-align: center;
+	float: left;
+	width: 128px;
+	margin: 5px 5px 5px 0px;
+}
+
+.widecolumn .attachment {
+	text-align: center;
+	margin: 5px 0px;
+}
+
+.postmetadata {
+	clear: both;
+}
+
+.clear {
+	clear: both;
+}
+
+#footer {
+    padding: 0;
+    clear: both;
+}
+
+#footer p {
+    margin-right: 450px;
+    text-align: center;
+}
+/* End Structure */
+
+
+
+/*	Begin Headers */
+h1 {
+	padding-top: 70px;
+	margin: 0;
+	}
+
+h2 {
+	margin: 0px 0 0;
+	}
+
+h2.pagetitle {
+	margin-top: 30px;
+	text-align: center;
+}
+
+#sidebar h2 {
+	margin: 5px 0 0;
+	padding: 0;
+	}
+
+h3 {
+	padding: 0;
+	margin: 30px 0 0;
+	}
+
+h3.comments {
+	padding: 0;
+	margin: 40px auto 20px ;
+	}
+/* End Headers */
+
+
+
+/* Begin Images */
+p img {
+	padding: 0;
+	max-width: 100%;
+	}
+
+/*	Using 'class="alignright"' on an image will (who would've
+	thought?!) align the image to the right. And using 'class="centered',
+	will of course center the image. This is much better than using
+	align="center", being much more futureproof (and valid) */
+
+img.centered {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+
+img.alignright {
+	padding: 4px;
+	margin: 0 0 2px 7px;
+	display: inline;
+	}
+
+img.alignleft {
+	padding: 4px;
+	margin: 0 7px 2px 0;
+	display: inline;
+	}
+
+.alignright {
+	float: right;
+	}
+
+.alignleft {
+	float: left
+	}
+/* End Images */
+
+
+
+/* Begin Lists
+
+	Special stylized non-IE bullets
+	Do not work in Internet Explorer, which merely default to normal bullets. */
+
+html>body .entry ul {
+	margin-left: 0px;
+	padding: 0 0 0 30px;
+	list-style: none;
+	padding-left: 10px;
+	text-indent: -10px;
+	}
+
+html>body .entry li {
+	margin: 7px 0 8px 10px;
+	}
+
+.entry ul li:before, #sidebar ul ul li:before {
+	content: "\00BB \0020";
+	}
+
+.entry ol {
+	padding: 0 0 0 35px;
+	margin: 0;
+	}
+
+.entry ol li {
+	margin: 0;
+	padding: 0;
+	}
+
+.postmetadata ul, .postmetadata li {
+	display: inline;
+	list-style-type: none;
+	list-style-image: none;
+	}
+
+#sidebar ul, #sidebar ul ol {
+	margin: 0;
+	padding: 0;
+	}
+
+#sidebar ul li {
+	list-style-type: none;
+	list-style-image: none;
+	margin-bottom: 15px;
+	}
+
+#sidebar ul p, #sidebar ul select {
+	margin: 5px 0 8px;
+	}
+
+#sidebar ul ul, #sidebar ul ol {
+	margin: 5px 0 0 10px;
+	}
+
+#sidebar ul ul ul, #sidebar ul ol {
+	margin: 0 0 0 10px;
+	}
+
+ol li, #sidebar ul ol li {
+	list-style: decimal outside;
+	}
+
+#sidebar ul ul li, #sidebar ul ol li {
+	margin: 3px 0 0;
+	padding: 0;
+	}
+/* End Entry Lists */
+
+
+
+/* Begin Form Elements */
+#searchform {
+    padding: 5px 3px;
+    text-align: center;
+}
+
+#page #sidebar {
+text-align: right;
+}
+
+#sidebar #searchform #s {
+    width: 85px;
+    padding: 4px;
+    margin-left: 12px;
+    margin-top: 0px;
+    padding-top: 0px;
+    position: relative;
+    top: -10px;
+}
+
+#sidebar #searchsubmit {
+	padding: 1px;
+	}
+
+.entry form { /* This is mainly for password protected posts, makes them look better. */
+	text-align:center;
+	}
+
+select {
+	width: 130px;
+	}
+
+#commentform input {
+	width: 170px;
+	padding: 2px;
+	margin: 5px 5px 1px 0;
+	}
+
+#commentform textarea {
+	width: 100%;
+	padding: 2px;
+	}
+
+#commentform #submit {
+	margin: 0;
+	float: right;
+	}
+/* End Form Elements */
+
+
+
+/* Begin Comments*/
+.alt {
+	margin: 0;
+	padding: 10px;
+	}
+
+.commentlist {
+	padding: 0;
+	text-align: justify;
+	}
+
+.commentlist li {
+	margin: 15px 0 3px;
+	padding: 5px 10px 3px;
+	list-style: none;
+	}
+
+.commentlist p {
+	margin: 10px 5px 10px 0;
+	}
+
+#commentform p {
+	margin: 5px 0;
+	}
+
+.nocomments {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	}
+
+.commentmetadata {
+	margin: 0;
+	display: block;
+	}
+/* End Comments */
+
+
+
+/* Begin Sidebar */
+#sidebar
+{
+    width: 190px;
+}
+
+#sidebar form {
+    margin: 0;
+    margin-bottom: -20px;
+}
+
+#sidebar div.sidebar_description {
+    background-image: url('images/sidebar-background.png');
+
+    margin: 0;
+    
+    padding-left: 25px;
+    padding-top: 15px;
+    padding-bottom: 57px;
+    padding-right: 24px;
+
+    height: 440px;
+    width: 150px;
+}
+
+#sidebar div.sidebar_description p {
+    text-align: center;
+    font-size: 11pt;
+    color: rgb(209, 195, 140);
+}
+
+#sidebar div.sidebar_description  p em{
+    font-style: normal;
+    text-decoration: underline;
+}
+
+/* End Sidebar */
+
+
+
+/* Begin Calendar */
+#wp-calendar {
+	empty-cells: show;
+	margin: 10px auto 0;
+	width: 155px;
+	}
+
+#wp-calendar #next a {
+	padding-right: 10px;
+	text-align: right;
+	}
+
+#wp-calendar #prev a {
+	padding-left: 10px;
+	text-align: left;
+	}
+
+#wp-calendar a {
+	display: block;
+	}
+
+#wp-calendar caption {
+	text-align: center;
+	width: 100%;
+	}
+
+#wp-calendar td {
+	padding: 3px 0;
+	text-align: center;
+	}
+
+#wp-calendar td.pad:hover { /* Doesn't work in IE */
+	background-color: #fff; }
+/* End Calendar */
+
+
+
+/* Begin Various Tags & Classes */
+acronym, abbr, span.caps {
+	cursor: help;
+	}
+
+acronym, abbr {
+	border-bottom: 1px dashed #999;
+	}
+
+blockquote {
+	margin: 15px 30px 30px 0px;
+	padding-left: 0px;
+	}
+
+blockquote cite {
+	margin: 5px 0 0;
+	display: block;
+	}
+
+.center {
+	text-align: center;
+	}
+
+.hidden {
+	display: none;
+	}
+
+hr {
+	display: none;
+	}
+
+#content img.hr {
+    display: block;
+    background-image: url('images/arrow.png');
+    width: 425px;
+    height: 6px;
+    margin-left: 34px;
+    border: none;
+    background-color: transparent;
+}
+
+#content img.hr:last-child {
+    display: none;
+}
+
+a img {
+	border: none;
+	}
+
+.navigation {
+	display: block;
+	text-align: center;
+	min-height: 17px;
+	margin-bottom: 30px;
+	}
+
+/* End Various Tags & Classes*/
+
+
+
+/* Captions */
+.aligncenter,
+div.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wp-caption {
+	border: 1px solid #ddd;
+	text-align: center;
+	background-color: #f3f3f3;
+	padding-top: 4px;
+	margin: 10px;
+	margin-right: 30px;
+	margin-left: 0px;
+	padding-left: 0px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.wp-caption img {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+}
+
+.wp-caption p.wp-caption-text {
+	font-size: 11px;
+	line-height: 17px;
+	padding: 0 4px 5px;
+	margin: 0;
+}
+/* End captions */
+
+/* Menubar styles */
+ul.menubar {
+    padding-left: 0;
+    margin-left: -50px; 
+    position: relative;
+    margin-top: -12px;
+    float: left;
+    height: 55px;
+}
+
+ul.menubar li {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    height: 55px;
+    overflow: hidden;
+    position: relative;
+}
+
+ul.menubar li img {
+    position: relative;
+}
+
+ul.menubar li:hover img {
+    position: relative;
+    top: -55px;
+}
+
+/* Background pieces */
+div#bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 811px;
+    height: 100%;
+
+    z-index: -1;
+}
+
+div#bg-container div {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+
+#bg-top {
+    top: 0;
+    background-image: url('images/BGParchment-top.png');
+    background-repeat: no-repeat;
+    height: 29px;
+}
+#bg-middle-left {
+    top: 29px;
+    bottom: 120px;
+    background-image: url('images/BGParchment-middle-left.png');
+    background-repeat: repeat-y;
+
+}
+#bg-middle-middle {
+    top: 29px;
+    bottom: 120px;
+    left: 10px;
+    width: 681px; !important
+    color: #fdf3cc;
+    background-image: url('images/BGParchment-middle-middle.png');
+    background-repeat: repeat-y;
+}
+#bg-middle-right {
+    top: 29px;
+    bottom: 120px;
+    left: 691px;    
+    background-image: url('images/BGParchment-middle-right.png');
+    background-repeat: repeat-y;
+
+}
+
+#bg-bottom {
+    bottom: 0px;
+    background-image: url('images/BGParchment-bottom.png');
+    background-repeat: no-repeat;
+    height: 140px;
+}
+
+#bg-container div#watermark {
+    background-image: url('images/watermark.png');
+    width: 296px;
+    height: 296px;
+    bottom: 175px;
+    right: 50px;
+}

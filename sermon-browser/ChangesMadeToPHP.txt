@@ -1,0 +1,7 @@
+filetypes.php => add m4v and mv4   liine 19-28
+podcast.php => add<itunes:image> line 122
+	take out line 129 and 130
+	change <title> line 141
+frontend.php => add next page button line 607 
+	add previous page button line 618
+	change drop down filter starting on line 931
