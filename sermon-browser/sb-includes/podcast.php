@@ -119,9 +119,11 @@ echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 	<lastBuildDate><?php sb_print_iso_date(isset($sermons[0]) ? $sermons[0]: time()) ?></lastBuildDate>
 	<pubDate><?php sb_print_iso_date(isset($sermons[0]) ? $sermons[0]: time()) ?></pubDate>
 	<generator>Wordpress Sermon Browser plugin <?php echo SB_CURRENT_VERSION ?> (http://www.sermonbrowser.com/)</generator>
-	<docs>http://blogs.law.harvard.edu/tech/rss</docs>
+	<itunes:image href="http://sermons.mvchurchofchrist.org/iTunesgraphic.png" />
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
 	<category>Religion &amp; Spirituality</category>
 	<itunes:category text="Religion &amp; Spirituality"></itunes:category>
+	
 	<?php
 		$mp3count = 0;
 		$accepted_extensions = array ('mp3', 'm4a', 'mp4', 'm4v','mov', 'wma', 'wmv');
